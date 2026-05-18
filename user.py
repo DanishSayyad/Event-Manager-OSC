@@ -10,7 +10,11 @@ class User:
 
 # Loads the user data from csv
 def userLoad():
-    return pd.read_csv("data/users.csv")
+    columns = ["name", "username", "email", "password", "admin"]
+    try:
+        return pd.read_csv("data/users.csv")
+    except (FileNotFoundError, pd.errors.EmptyDataError, OSError):
+        return pd.DataFrame(columns=columns)
 
 # Returns a dictionary of user credentials
 def takeCreds():

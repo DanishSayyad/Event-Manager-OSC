@@ -3,7 +3,10 @@ import pandas as pd
 
 def getMails(email, file_path="data/mails.csv"):
     mails = []
-    df = pd.read_csv(file_path)
+    try:
+        df = pd.read_csv(file_path)
+    except (FileNotFoundError, pd.errors.EmptyDataError, OSError):
+        df = pd.DataFrame(columns=["to", "subject", "body", "date", "time"])
     for _, row in df[df["to"] == email].iterrows():
         mail = Mail(
             mail_to=row["to"],

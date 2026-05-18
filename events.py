@@ -2,7 +2,11 @@ import pandas as pd
 
 # Loads the events data from csv
 def eventLoad():
-    return pd.read_csv("data/events.csv")
+    columns = ["ID", "name", "date", "time", "duration", "type", "location", "attendees"]
+    try:
+        return pd.read_csv("data/events.csv")
+    except (FileNotFoundError, pd.errors.EmptyDataError, OSError):
+        return pd.DataFrame(columns=columns)
 
 class Event:
     def __init__(self, event_id=0, name=None, date=None, time=None, duration=None, event_type=None, location=None):
