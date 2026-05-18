@@ -1,12 +1,14 @@
 from datetime import datetime
 import pandas as pd
 
+MAIL_COLUMNS = ["to", "subject", "body", "date", "time"]
+
 def getMails(email, file_path="data/mails.csv"):
     mails = []
     try:
         df = pd.read_csv(file_path)
     except (FileNotFoundError, pd.errors.EmptyDataError, OSError):
-        df = pd.DataFrame(columns=["to", "subject", "body", "date", "time"])
+        df = pd.DataFrame(columns=MAIL_COLUMNS)
     for _, row in df[df["to"] == email].iterrows():
         mail = Mail(
             mail_to=row["to"],

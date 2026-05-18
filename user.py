@@ -1,5 +1,7 @@
 from utils import *
 
+USER_COLUMNS = ["name", "username", "email", "password", "admin"]
+
 class User:
     def __init__(self, name, username, email, password, admin):
         self.name = name
@@ -10,11 +12,10 @@ class User:
 
 # Loads the user data from csv
 def userLoad():
-    columns = ["name", "username", "email", "password", "admin"]
     try:
         return pd.read_csv("data/users.csv")
     except (FileNotFoundError, pd.errors.EmptyDataError, OSError):
-        return pd.DataFrame(columns=columns)
+        return pd.DataFrame(columns=USER_COLUMNS)
 
 # Returns a dictionary of user credentials
 def takeCreds():
